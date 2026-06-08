@@ -8,7 +8,8 @@ const App = () => {
   return (
     <AuthProvider>
       <Routes>
-        <Route path= "/Login" element={<Login/>}/>
+        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/login" element={<Login/>}/>
       </Routes>
       
     </AuthProvider>
