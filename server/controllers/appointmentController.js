@@ -1,5 +1,4 @@
 const Appointment = require('../models/Appointment');
-const Doctor = require('../models/Doctor');
 const User = require('../models/User');
 
 const bookAppointment=async(req, res) =>{
@@ -21,7 +20,7 @@ const bookAppointment=async(req, res) =>{
 
 const getMyAppointments= async(req, res)=>{
     try{
-    const appointments = await Appointment.find({ patient: req.user.id })
+    const appointments = await Appointment.find({ patient: req.user.id }).populate('doctor', 'name specialization location');
     res.json(appointments)
     }catch(err){
         res.status(500).json({message: err.message});
@@ -30,7 +29,7 @@ const getMyAppointments= async(req, res)=>{
 
 const getDoctorAppointments= async(req, res)=>{
     try{
-        const appointments= await Appointment.find({doctor: req.user.id})
+        const appointments= await Appointment.find({doctor: req.user.id}).populate('patient', 'name email');
         res.json(appointments)
     } catch(err){
         res.status(500).json({message: err.message});
